@@ -193,14 +193,17 @@ function createOrgs() {
       fi
     done
 
+    #조직1 피어 2개 증명서 발급하여 파일 저장
     infoln "Creating Org1 Identities"
 
     createOrg1
 
+    #조직2 피어 2개 증명서 발급하여 파일 저장
     infoln "Creating Org2 Identities"
 
     createOrg2
 
+    #오더링 3개 증명서 발급하여 파일 저장
     infoln "Creating Orderer Org Identities"
 
     createOrderer
