@@ -26,6 +26,8 @@ function yaml_ccp {
         organizations/ccp-template.yaml | sed -e $'s/\\\\n/\\\n          /g'
 }
 
+#조직 2개를 구성하고 있기 때문에 해당 내용대로 설정한다.
+#Dapp에서 ORG1에 연결시 필요한 통신 관리 설정값
 ORG=1
 P0PORT=7051
 CAPORT=7054
@@ -35,6 +37,7 @@ CAPEM=organizations/peerOrganizations/org1.example.com/ca/ca.org1.example.com-ce
 echo "$(json_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/org1.example.com/connection-org1.json
 echo "$(yaml_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/org1.example.com/connection-org1.yaml
 
+#Dapp에서 ORG2에 연결시 필요한 통신 관리 설정값
 ORG=2
 P0PORT=9051
 CAPORT=8054
