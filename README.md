@@ -35,3 +35,13 @@ curl - 7.68.0
 5. 피어 채널 참석
 6. 체인코드 배포
 7. DApp 연결
+
+#
+## 세부 구현 과정
+### 네트워크 구축과정 1번 ~ 3번
+1. docker-compose-ca.yaml파일 -> 조직2개, 피어 4개, 오더링 3개
+2. registerEnroll.sh파일 조직당 identity 생성함수 수정, 호출 수정
+3. ccp-generate.sh파일 연결 설정
+4. config.tx파일 (configtxgen명령어 관련) 수정 -> 오더러 genesis 블록 재설정
+5. docker-compose-test-net-yaml파일 조건에 맞게 수정
+6. docker-compose-couch.yaml 파일 조건에 맞게 수정
