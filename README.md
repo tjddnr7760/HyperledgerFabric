@@ -42,6 +42,6 @@ curl - 7.68.0
 1. docker-compose-ca.yaml파일 -> 조직3개에 대한 ca생성
 2. registerEnroll.sh파일 조직당 identity 생성함수 수정
 3. ccp-generate.sh파일 연결 설정
-4. config.tx파일 (configtxgen명령어 관련) 수정 -> 오더러 genesis 블록 재설정
-5. docker-compose-test-net-yaml 파일 조건에 맞게 수정
-6. docker-compose-couch.yaml 파일 조건에 맞게 수정
+4. docker-compose-test-net-yaml 파일 조건에 맞게 수정
+5. docker-compose-couch.yaml 파일 조건에 맞게 수정
+6. config.tx파일 (configtxgen명령어 관련) 추가한 값에 맞게 수정 -> (오더러 genesis 블록 재설정, 추가된 피어, 추가된 오더러 등)
