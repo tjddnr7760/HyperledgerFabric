@@ -28,6 +28,7 @@ function yaml_ccp {
 
 #조직 2개를 구성하고 있기 때문에 해당 내용대로 설정한다.
 #Dapp에서 ORG1에 연결시 필요한 통신 관리 설정값
+#POPPORT는 조직1의 첫번째 피어 포트번호이다.
 ORG=1
 P0PORT=7051
 CAPORT=7054
@@ -38,6 +39,7 @@ echo "$(json_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrga
 echo "$(yaml_ccp $ORG $P0PORT $CAPORT $PEERPEM $CAPEM)" > organizations/peerOrganizations/org1.example.com/connection-org1.yaml
 
 #Dapp에서 ORG2에 연결시 필요한 통신 관리 설정값
+#POPPORT는 조직2의 첫번째 피어 포트번호이다.
 ORG=2
 P0PORT=9051
 CAPORT=8054
