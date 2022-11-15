@@ -510,22 +510,22 @@ Profiles:
             Organizations:
                 - *OrdererOrg
             Capabilities:
-                <<: *OrdererCapabilities           
+                <<: *OrdererCapabilities        
         Consortiums:
             SampleConsortium:
                 Organizations:
                     - *Org1
                     - *Org2
 
-    # Channel1:
-    #     Consortiums: SampleConsortium
-    #     <<: *ChannelDefaults
-    #     Application:
-    #         <<: *ApplicationDefaults
-    #         Organizations:
-    #             - *Org1
-    #             - *Org2
-    #         Capabilities:
-    #             <<: *ApplicationCapabilities
+    mychannel:
+        Consortium: SampleConsortium
+        <<: *ChannelDefaults
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Org1
+                - *Org2
+            Capabilities:
+                <<: *ApplicationCapabilities
 
     
