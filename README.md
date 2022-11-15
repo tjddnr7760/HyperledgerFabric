@@ -45,3 +45,11 @@ curl - 7.68.0
 4. docker-compose-test-net-yaml 파일 조건에 맞게 수정
 5. docker-compose-couch.yaml 파일 조건에 맞게 수정
 6. config.tx파일 (configtxgen명령어 관련) 추가한 값에 맞게 수정 -> (오더러 genesis 블록 재설정, 추가된 피어, 추가된 오더러 등)
+
+### 채널 생성 및 피어 채널 참석 4번 ~ 5번
+1. createChannel.sh파일을 요청함으로 해당 파일 조건에 맞게 수정
+2. createChannel.sh파일 내부에 envVar.sh파일 조건에 맞게 수정
+
+### 체인코드 배포
+
+### Dapp 제작 및 연결
