@@ -28,7 +28,7 @@ curl - 7.68.0
 
 #
 ## 네트워크 구축 과정
-1. CA 기본 구축(MSP) -> CA1 CA2
+1. CA 기본 구축(MSP) -> Orderer CA, Org1 CA1, Org2 CA2
 2. 오더링 서비스 3개 구축
 3. configuration block 설정
 4. 채널 생성
@@ -51,5 +51,10 @@ curl - 7.68.0
 2. createChannel.sh파일 내부에 envVar.sh파일 조건에 맞게 수정
 
 ### 체인코드 배포
+1. 기존 체인코드 수정
+2. 체인코드 패키지 생성
+3. 체인코드 각 피어 설치
+4. 조직별 체인코드 승인
+5. 작동 확인
 
 ### Dapp 제작 및 연결
