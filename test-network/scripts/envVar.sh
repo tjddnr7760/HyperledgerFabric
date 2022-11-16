@@ -11,10 +11,24 @@
 . scripts/utils.sh
 
 export CORE_PEER_TLS_ENABLED=true
-export ORDERER_CA=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+# 인증서 환경변수
+export ORDERER_CA=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+export ORDERER2_CA=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer1.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+export ORDERER3_CA=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+
+# Org1 환경변수
 export PEER0_ORG1_CA=${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+export PEER1_ORG1_CA=${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
+
+# Org2 환경변수
 export PEER0_ORG2_CA=${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
-export PEER0_ORG3_CA=${PWD}/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt
+export PEER1_ORG2_CA=${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
+
+setOrdererGlobals() {
+  export CORE_PEER_LOCALMSPID="OrdererMSP"
+  export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+  export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/ordererOrganizations/example.com/users/Admin@example.com/msp
+}
 
 # Set environment variables for the peer org
 setGlobals() {
@@ -24,23 +38,35 @@ setGlobals() {
   else
     USING_ORG="${OVERRIDE_ORG}"
   fi
-  infoln "Using organization ${USING_ORG}"
-  if [ $USING_ORG -eq 1 ]; then
+
+  local MYPEER=$2
+  infoln "Using organization ${ORDERER_CA}, ${MYPEER}"
+
+  if [ $USING_ORG == 'org1' ] && [ $MYPEER -eq 0 ]; then
     export CORE_PEER_LOCALMSPID="Org1MSP"
     export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG1_CA
     export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
     export CORE_PEER_ADDRESS=localhost:7051
-  elif [ $USING_ORG -eq 2 ]; then
+    export NUM="ch1"
+    echo ${PEER0_ORG1_CA} "출력문"
+  elif [ $USING_ORG == 'org1' ] && [ $MYPEER -eq 1 ]; then
+    export CORE_PEER_LOCALMSPID="Org1MSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER1_ORG1_CA
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+    export CORE_PEER_ADDRESS=localhost:7061
+    export NUM="ch1"
+  elif [ $USING_ORG == 'org2' ] && [ $MYPEER -eq 0 ]; then
     export CORE_PEER_LOCALMSPID="Org2MSP"
     export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG2_CA
     export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
     export CORE_PEER_ADDRESS=localhost:9051
-
-  elif [ $USING_ORG -eq 3 ]; then
-    export CORE_PEER_LOCALMSPID="Org3MSP"
-    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG3_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp
-    export CORE_PEER_ADDRESS=localhost:11051
+    export NUM="ch1"
+  elif [ $USING_ORG == 'org2' ] && [ $MYPEER -eq 1 ]; then
+    export CORE_PEER_LOCALMSPID="Org2MSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER1_ORG2_CA
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+    export CORE_PEER_ADDRESS=localhost:9061
+    export NUM="ch1"
   else
     errorln "ORG Unknown"
   fi
@@ -61,11 +87,9 @@ setGlobalsCLI() {
     USING_ORG="${OVERRIDE_ORG}"
   fi
   if [ $USING_ORG -eq 1 ]; then
-    export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+    export CORE_PEER_ADDRESS=localhost:7051 #peer0.org1.example.com:7051
   elif [ $USING_ORG -eq 2 ]; then
-    export CORE_PEER_ADDRESS=peer0.org2.example.com:9051
-  elif [ $USING_ORG -eq 3 ]; then
-    export CORE_PEER_ADDRESS=peer0.org3.example.com:11051
+    export CORE_PEER_ADDRESS=localhost:9051 #peer0.org2.example.com:9051
   else
     errorln "ORG Unknown"
   fi
